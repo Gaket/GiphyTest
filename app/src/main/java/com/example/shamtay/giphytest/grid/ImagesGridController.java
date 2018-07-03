@@ -139,4 +139,9 @@ public class ImagesGridController extends Controller implements ImagesGridView {
     public void clearItems() {
         adapter.clear();
     }
+
+    @Override
+    public void collapseSearch() {
+        searchView.onActionViewCollapsed();
+    }
 }

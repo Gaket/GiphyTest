@@ -16,7 +16,10 @@ public class GiphyApp extends Application {
     public void onCreate() {
         super.onCreate();
         Timber.plant(new Timber.DebugTree());
-        componentInjector = new ComponentInjector();
+        componentInjector = new ComponentInjector(this);
+
+        /*boxStore = MyObjectBox.builder().androidContext(this).build()
+        box = boxStore.boxFor(PlayList::class.java)*/
     }
 
     public static ComponentInjector getComponentInjector() {

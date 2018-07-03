@@ -21,8 +21,6 @@ public class ImagesGridPresenter extends Presenter<ImagesGridView> {
     private static final int PAGINATION_LIMIT = 50;
     private static final String VIEW_NOT_ATTACHED = "View is not attached!";
 
-    @NonNull
-    GiphyApi api;
 
     @Nullable
     private List<SearchResultsViewModel> items;
@@ -33,12 +31,17 @@ public class ImagesGridPresenter extends Presenter<ImagesGridView> {
 
     private int paginationOffset = 0;
 
-    private @Nullable Disposable searchDisposable;
+    @Nullable
+    private Disposable searchDisposable;
 
-    private @Nullable String currentTextSearch;
+    @Nullable
+    private String currentTextSearch;
 
-    public ImagesGridPresenter(@NonNull GiphyApi api) {
-        this.api = api;
+    @NonNull
+    private SearchInteractor interactor;
+
+    public ImagesGridPresenter(@NonNull SearchInteractor interactor) {
+        this.interactor = interactor;
     }
 
     public void onCreate(@NonNull ImagesGridView view) {
@@ -46,7 +49,7 @@ public class ImagesGridPresenter extends Presenter<ImagesGridView> {
 
         if (items == null && !isLoading) {
             loadData();
-        } else if (items != null){
+        } else if (items != null) {
             view.addItems(items);
         } else {
             view.showProgress();
@@ -59,10 +62,8 @@ public class ImagesGridPresenter extends Presenter<ImagesGridView> {
 
         if (currentTextSearch == null) return;
 
-        Timber.d("CurrentSearch %s", currentTextSearch);
-
         searchDisposable =
-                api.search(API_KEY, currentTextSearch, PAGINATION_LIMIT, paginationOffset)
+                interactor.search(currentTextSearch, PAGINATION_LIMIT, paginationOffset)
                         .doOnNext(response -> {
                             paginationOffset += PAGINATION_LIMIT;
                             if (response.pagination.count == 0) {
@@ -114,6 +115,7 @@ public class ImagesGridPresenter extends Presenter<ImagesGridView> {
             Timber.e(VIEW_NOT_ATTACHED);
             return;
         }
+        getView().collapseSearch();
         getView().openVideoScreen(searchResultsViewModel.videoUrl);
     }
 

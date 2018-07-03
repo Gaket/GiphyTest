@@ -24,8 +24,11 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class VideoViewController extends Controller {
 
@@ -36,6 +39,9 @@ public class VideoViewController extends Controller {
 
     @BindView(R.id.player)
     PlayerView playerView;
+
+    @Inject
+    VideoViewPresenter presenter;
 
     public VideoViewController(@NonNull String url) {
         this.url = url;
@@ -53,7 +59,11 @@ public class VideoViewController extends Controller {
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
         View v = inflater.inflate(R.layout.view_video, container, false);
         ButterKnife.bind(this, v);
+        setUpPlayer();
+        return v;
+    }
 
+    private void setUpPlayer() {
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
 
         TrackSelection.Factory videoTrackSelectionFactory =
@@ -76,8 +86,16 @@ public class VideoViewController extends Controller {
 
         player.prepare(source);
         player.setPlayWhenReady(true);
+    }
 
-        return v;
+    @OnClick(R.id.down_vote)
+    void downVoteView() {
+        presenter.onDownVoteClick();
+    }
+
+    @OnClick(R.id.up_vote)
+    void upVote() {
+        presenter.onUpVoteClick();
     }
 
 }
