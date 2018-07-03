@@ -31,24 +31,31 @@ public class ImagesGridController extends Controller implements ImagesGridView {
 
     @Inject
     ImagesGridPresenter presenter;
+    private LayoutInflater inflater;
 
     @NonNull
     @Override
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
+        this.inflater = inflater;
+
         View view = inflater.inflate(R.layout.view_images_grid, container, false);
         ButterKnife.bind(this, view);
+        setRecyclerView();
+
         GiphyApp.getComponentInjector().getGridComponent().inject(this);
 
-        adapter = new SearchResultsRecyclerAdapter(inflater);
-
-        searchResultsView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
-        searchResultsView.setAdapter(adapter);
-
-        adapter.setOnImageClickListener(presenter::onImageClick);
-
         presenter.onCreate(this);
+
         return view;
     }
+
+    private void setRecyclerView() {
+        adapter = new SearchResultsRecyclerAdapter(inflater);
+        searchResultsView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
+        searchResultsView.setAdapter(adapter);
+        adapter.setOnImageClickListener( image -> presenter.onImageClick(image));
+    }
+
 
     @Override
     protected void onDestroyView(@NonNull View view) {

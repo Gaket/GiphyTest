@@ -44,17 +44,14 @@ public class ImagesGridPresenter extends Presenter<ImagesGridView> {
                         .flatMapIterable(items -> items)
                         .map(SearchResultsViewModel::getInstance)
                         .toList()
-                        // TODO: 03.07.2018 refactor, may be cashing in repo?
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(items -> {
-
                             saveItems(items);
-                            Timber.d("responseOk");
                             if (getView() != null) {
                                 getView().addItems(items);
                             }
+                            Timber.d("responseOk");
                         }, Timber::e);
-
         unsubscribeOnDestroy(d);
     }
 
@@ -70,7 +67,6 @@ public class ImagesGridPresenter extends Presenter<ImagesGridView> {
             Timber.e("View is null!");
             return;
         }
-
         getView().openVideoScreen(searchResultsViewModel.videoUrl);
     }
 
