@@ -1,5 +1,7 @@
 package com.example.shamtay.giphytest.dagger;
 
+import com.example.shamtay.giphytest.grid.ImagesGridPresenter;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -27,5 +29,13 @@ public class AppModule {
     GiphyApi getApi(Retrofit retrofit) {
         return retrofit.create(GiphyApi.class);
     }
+
+
+    @Provides
+    @Singleton
+    ImagesGridPresenter getImagesGridPresenter(GiphyApi api) {
+        return new ImagesGridPresenter(api);
+    }
+
 
 }

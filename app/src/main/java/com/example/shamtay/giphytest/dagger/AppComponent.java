@@ -1,6 +1,6 @@
 package com.example.shamtay.giphytest.dagger;
 
-import com.example.shamtay.giphytest.ImagesGridController;
+import com.example.shamtay.giphytest.grid.ImagesGridController;
 
 import javax.inject.Singleton;
 

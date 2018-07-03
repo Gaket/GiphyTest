@@ -1,4 +1,4 @@
-package com.example.shamtay.giphytest;
+package com.example.shamtay.giphytest.grid;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
@@ -8,29 +8,27 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bluelinelabs.conductor.Controller;
+import com.example.shamtay.giphytest.R;
+import com.example.shamtay.giphytest.SearchResultsViewModel;
 import com.example.shamtay.giphytest.dagger.DaggerAppComponent;
-import com.example.shamtay.giphytest.dagger.GiphyApi;
 import com.example.shamtay.giphytest.models.SearchResultsRecyclerAdapter;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import timber.log.Timber;
 
-import static com.example.shamtay.giphytest.GiphyApp.API_KEY;
-
-public class ImagesGridController extends Controller {
-
-    @Inject
-    GiphyApi api;
+public class ImagesGridController extends Controller implements ImagesGridView {
 
     @BindView(R.id.search_results)
     RecyclerView searchResultsView;
 
     private SearchResultsRecyclerAdapter adapter;
+
+    @Inject
+    ImagesGridPresenter presenter;
 
     @NonNull
     @Override
@@ -43,20 +41,23 @@ public class ImagesGridController extends Controller {
         searchResultsView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
         searchResultsView.setAdapter(adapter);
 
-        api.search(API_KEY, "test")
-                .map(resp -> resp.data)
-                .flatMapIterable(items -> items)
-                .map(item -> SearchResultsViewModel.getInstance(item))
-                .toList()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(items -> {
-                    Timber.d("responseOk");
-                    adapter.addItems(items);
-                }, e -> {
-                    Timber.e(e);
-                });
-
         return view;
     }
 
+    @Override
+    protected void onAttach(@NonNull View view) {
+        super.onAttach(view);
+        presenter.onAttach(this);
+    }
+
+    @Override
+    protected void onDestroyView(@NonNull View view) {
+        super.onDestroyView(view);
+        presenter.onDestroy();
+    }
+
+    @Override
+    public void addItems(List<SearchResultsViewModel> items) {
+        adapter.addItems(items);
+    }
 }
