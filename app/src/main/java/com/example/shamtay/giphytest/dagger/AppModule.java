@@ -31,11 +31,6 @@ public class AppModule {
     }
 
 
-    @Provides
-    @Singleton
-    ImagesGridPresenter getImagesGridPresenter(GiphyApi api) {
-        return new ImagesGridPresenter(api);
-    }
 
 
 }

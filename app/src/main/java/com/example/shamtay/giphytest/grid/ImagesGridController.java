@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.RouterTransaction;
+import com.example.shamtay.giphytest.GiphyApp;
 import com.example.shamtay.giphytest.R;
 import com.example.shamtay.giphytest.SearchResultsViewModel;
-import com.example.shamtay.giphytest.dagger.DaggerAppComponent;
 import com.example.shamtay.giphytest.models.SearchResultsRecyclerAdapter;
 import com.example.shamtay.giphytest.video.VideoViewController;
 
@@ -37,7 +37,8 @@ public class ImagesGridController extends Controller implements ImagesGridView {
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
         View view = inflater.inflate(R.layout.view_images_grid, container, false);
         ButterKnife.bind(this, view);
-        DaggerAppComponent.builder().build().inject(this);
+        GiphyApp.getComponentInjector().getGridComponent().inject(this);
+
         adapter = new SearchResultsRecyclerAdapter(inflater);
 
         searchResultsView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
@@ -45,19 +46,20 @@ public class ImagesGridController extends Controller implements ImagesGridView {
 
         adapter.setOnImageClickListener(presenter::onImageClick);
 
+        presenter.onCreate(this);
         return view;
-    }
-
-    @Override
-    protected void onAttach(@NonNull View view) {
-        super.onAttach(view);
-        presenter.onAttach(this);
     }
 
     @Override
     protected void onDestroyView(@NonNull View view) {
         super.onDestroyView(view);
-        presenter.onDestroy();
+        adapter = null;
+        if (isBeingDestroyed()) {
+            GiphyApp.getComponentInjector().clearGridComponent();
+            presenter.onDestroy();
+        } else {
+            presenter.onDetach();
+        }
     }
 
     @Override

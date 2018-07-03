@@ -17,7 +17,7 @@ public class Presenter<V> {
         disposable.add(subscription);
     }
 
-    public void attacheView(@NonNull V view) {
+    protected void setView(@NonNull V view) {
         this.view = view;
     }
 
@@ -28,5 +28,9 @@ public class Presenter<V> {
     public void onDestroy() {
         view = null;
         disposable.clear();
+    }
+
+    public void onDetach() {
+        view = null;
     }
 }

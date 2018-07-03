@@ -1,5 +1,7 @@
 package com.example.shamtay.giphytest.dagger;
 
+import com.example.shamtay.giphytest.dagger.grid.GridComponent;
+import com.example.shamtay.giphytest.dagger.grid.GridModule;
 import com.example.shamtay.giphytest.grid.ImagesGridController;
 
 import javax.inject.Singleton;
@@ -9,5 +11,5 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class})
 public interface AppComponent {
-    void inject(ImagesGridController mainActivity);
+    GridComponent addGridComponent(GridModule gridModule);
 }
