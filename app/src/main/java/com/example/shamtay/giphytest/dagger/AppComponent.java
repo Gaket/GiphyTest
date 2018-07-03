@@ -2,7 +2,6 @@ package com.example.shamtay.giphytest.dagger;
 
 import com.example.shamtay.giphytest.dagger.grid.GridComponent;
 import com.example.shamtay.giphytest.dagger.grid.GridModule;
-import com.example.shamtay.giphytest.grid.ImagesGridController;
 
 import javax.inject.Singleton;
 

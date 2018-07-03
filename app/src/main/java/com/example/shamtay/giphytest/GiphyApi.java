@@ -1,11 +1,10 @@
-package com.example.shamtay.giphytest.dagger;
+package com.example.shamtay.giphytest;
 
 import android.support.annotation.NonNull;
 
 import com.example.shamtay.giphytest.models.SearchResponseModel;
 
 import io.reactivex.Observable;
-import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
