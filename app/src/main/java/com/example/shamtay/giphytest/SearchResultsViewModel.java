@@ -2,12 +2,10 @@ package com.example.shamtay.giphytest;
 
 import com.example.shamtay.giphytest.models.GifObject;
 
-import timber.log.Timber;
-
 public class SearchResultsViewModel {
 
     public String imageUrl;
-
+    public String videoUrl;
 
     public static SearchResultsViewModel getInstance(GifObject gifObject) {
         SearchResultsViewModel model = new SearchResultsViewModel();

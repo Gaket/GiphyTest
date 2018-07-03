@@ -15,7 +15,6 @@ public class GifObject {
         public String url;
     }
 
-
     public static class Images {
         @SerializedName("fixed_width_still")
         public FixedWidthStill fixedWidthStill;

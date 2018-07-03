@@ -1,6 +1,5 @@
 package com.example.shamtay.giphytest.models;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,21 +15,21 @@ import java.util.List;
 
 public class SearchResultsRecyclerAdapter extends RecyclerView.Adapter {
 
-    private Context context;
+    @NonNull
+    private LayoutInflater inflater;
 
     @NonNull
     private List<SearchResultsViewModel> searchResults;
 
-    public SearchResultsRecyclerAdapter(@NonNull Context context) {
-        this.context = context;
+    public SearchResultsRecyclerAdapter(@NonNull LayoutInflater inflater) {
+        this.inflater = inflater;
         searchResults = new ArrayList<>();
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.row_search_result, parent, false);
-
+        View v = inflater.inflate(R.layout.row_search_result, parent, false);
         return new SearchResultsViewHolder(v);
     }
 
