@@ -11,18 +11,18 @@ public class SearchResponseModel {
     @SerializedName("data")
     public List<GifObject> data;
 
-    @SerializedName("Property")
-    public Property property;
+    @SerializedName("pagination")
+    public Pagination pagination;
 
-    public static class Property {
+    public static class Pagination {
+        @SerializedName("offset")
+        public int offset;
 
-        @SerializedName("msg")
-        public String msg;
+        @SerializedName("total_count")
+        public int totalCount;
 
-        @SerializedName("status")
-        public int status;
-
+        @SerializedName("count")
+        public int count;
     }
-
 
 }

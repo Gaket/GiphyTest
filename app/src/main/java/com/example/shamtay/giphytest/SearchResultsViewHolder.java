@@ -25,6 +25,7 @@ public class SearchResultsViewHolder extends RecyclerView.ViewHolder {
     public void bind(@NonNull SearchResultsViewModel model, @Nullable ImageClickListener onClickListener) {
         Picasso.get()
                 .load(model.imageUrl)
+                .placeholder(R.mipmap.ic_launcher)
                 //.resize(200, 50)
                 //.centerCrop()
                 .into(imageView);

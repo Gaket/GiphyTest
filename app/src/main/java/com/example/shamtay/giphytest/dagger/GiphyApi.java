@@ -13,6 +13,8 @@ public interface GiphyApi {
 
     @GET("/v1/gifs/search")
     Observable<SearchResponseModel> search(@NonNull @Query("api_key") String apiKey,
-                                       @NonNull @Query("q") String query);
+                                           @NonNull @Query("q") String query,
+                                           @Query("limit") int limit,
+                                           @Query("offset") int offset);
 
 }

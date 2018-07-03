@@ -2,10 +2,12 @@ package com.example.shamtay.giphytest.grid;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.RouterTransaction;
@@ -27,11 +29,16 @@ public class ImagesGridController extends Controller implements ImagesGridView {
     @BindView(R.id.search_results)
     RecyclerView searchResultsView;
 
+    @BindView(R.id.progress_bar)
+    View progressBar;
+
     private SearchResultsRecyclerAdapter adapter;
 
     @Inject
     ImagesGridPresenter presenter;
     private LayoutInflater inflater;
+
+    private static final int COLUMNS_COUNT = 3;
 
     @NonNull
     @Override
@@ -51,11 +58,23 @@ public class ImagesGridController extends Controller implements ImagesGridView {
 
     private void setRecyclerView() {
         adapter = new SearchResultsRecyclerAdapter(inflater);
-        searchResultsView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
+        searchResultsView.setLayoutManager(new GridLayoutManager(getApplicationContext(), COLUMNS_COUNT));
+
+        searchResultsView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                int lastCompletelyVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+                presenter.onScrollStateChanged(lastCompletelyVisibleItem);
+
+            }
+
+        });
+
         searchResultsView.setAdapter(adapter);
         adapter.setOnImageClickListener( image -> presenter.onImageClick(image));
     }
-
 
     @Override
     protected void onDestroyView(@NonNull View view) {
@@ -70,7 +89,7 @@ public class ImagesGridController extends Controller implements ImagesGridView {
     }
 
     @Override
-    public void addItems(List<SearchResultsViewModel> items) {
+    public void addItems(@NonNull List<SearchResultsViewModel> items) {
         adapter.addItems(items);
     }
 
@@ -80,5 +99,15 @@ public class ImagesGridController extends Controller implements ImagesGridView {
                 RouterTransaction.with(
                         new VideoViewController(videoUrl))
         );
+    }
+
+    @Override
+    public void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressBar.setVisibility(View.GONE);
     }
 }
