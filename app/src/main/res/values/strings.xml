@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GiphyTest</string>
+    <string name="action_search">Поиск</string>
 </resources>

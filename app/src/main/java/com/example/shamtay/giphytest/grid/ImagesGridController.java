@@ -53,6 +53,7 @@ public class ImagesGridController extends Controller implements ImagesGridView {
 
         presenter.onCreate(this);
 
+
         return view;
     }
 
