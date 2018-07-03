@@ -14,4 +14,6 @@ public interface ImagesGridView {
     void showProgress();
 
     void hideProgress();
+
+    void clearItems();
 }

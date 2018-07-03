@@ -1,9 +1,11 @@
 package com.example.shamtay.giphytest.grid;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +14,21 @@ import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.example.shamtay.giphytest.GiphyApp;
 import com.example.shamtay.giphytest.R;
+import com.example.shamtay.giphytest.RxSearchObservable;
 import com.example.shamtay.giphytest.SearchResultsViewModel;
 import com.example.shamtay.giphytest.models.SearchResultsRecyclerAdapter;
 import com.example.shamtay.giphytest.video.VideoViewController;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import timber.log.Timber;
 
 public class ImagesGridController extends Controller implements ImagesGridView {
 
@@ -31,6 +38,9 @@ public class ImagesGridController extends Controller implements ImagesGridView {
     @BindView(R.id.progress_bar)
     View progressBar;
 
+    @BindView(R.id.search_view)
+    SearchView searchView;
+
     private SearchResultsRecyclerAdapter adapter;
 
     @Inject
@@ -38,6 +48,9 @@ public class ImagesGridController extends Controller implements ImagesGridView {
     private LayoutInflater inflater;
 
     private static final int COLUMNS_COUNT = 3;
+
+    @Nullable
+    private Disposable searchTextInputDisposable;
 
     @NonNull
     @Override
@@ -52,6 +65,12 @@ public class ImagesGridController extends Controller implements ImagesGridView {
 
         presenter.onCreate(this);
 
+        searchTextInputDisposable = RxSearchObservable.fromView(searchView)
+                .debounce(1, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(text->{
+                    presenter.onSearchInput(text);
+                }, Timber::e);
 
         return view;
     }
@@ -80,6 +99,11 @@ public class ImagesGridController extends Controller implements ImagesGridView {
     protected void onDestroyView(@NonNull View view) {
         super.onDestroyView(view);
         adapter = null;
+
+        if (searchTextInputDisposable != null && !searchTextInputDisposable.isDisposed()) {
+            searchTextInputDisposable.dispose();
+        }
+
         if (isBeingDestroyed()) {
             GiphyApp.getComponentInjector().clearGridComponent();
             presenter.onDestroy();
@@ -109,5 +133,10 @@ public class ImagesGridController extends Controller implements ImagesGridView {
     @Override
     public void hideProgress() {
         progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void clearItems() {
+        adapter.clear();
     }
 }

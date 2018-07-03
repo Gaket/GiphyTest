@@ -59,4 +59,8 @@ public class SearchResultsRecyclerAdapter extends RecyclerView.Adapter {
         onImageClickListener = onClickListener;
     }
 
+    public void clear() {
+        searchResults.clear();
+        notifyDataSetChanged();
+    }
 }

@@ -18,6 +18,9 @@ import static com.example.shamtay.giphytest.GiphyApp.API_KEY;
 
 public class ImagesGridPresenter extends Presenter<ImagesGridView> {
 
+    private static final int PAGINATION_LIMIT = 50;
+    private static final String VIEW_NOT_ATTACHED = "View is not attached!";
+
     @NonNull
     GiphyApi api;
 
@@ -28,9 +31,11 @@ public class ImagesGridPresenter extends Presenter<ImagesGridView> {
 
     private boolean allDataLoaded;
 
-    private static final int PAGINATION_LIMIT = 50;
-
     private int paginationOffset = 0;
+
+    private @Nullable Disposable searchDisposable;
+
+    private @Nullable String currentTextSearch;
 
     public ImagesGridPresenter(@NonNull GiphyApi api) {
         this.api = api;
@@ -38,6 +43,7 @@ public class ImagesGridPresenter extends Presenter<ImagesGridView> {
 
     public void onCreate(@NonNull ImagesGridView view) {
         setView(view);
+
         if (items == null && !isLoading) {
             loadData();
         } else if (items != null){
@@ -51,10 +57,12 @@ public class ImagesGridPresenter extends Presenter<ImagesGridView> {
 
         if (allDataLoaded) return;
 
-        Disposable d =
-                api.search(API_KEY, "test", PAGINATION_LIMIT, paginationOffset)
-                        // TODO: 03.07.2018 remove before release
-                        //.delay(5, TimeUnit.SECONDS)
+        if (currentTextSearch == null) return;
+
+        Timber.d("CurrentSearch %s", currentTextSearch);
+
+        searchDisposable =
+                api.search(API_KEY, currentTextSearch, PAGINATION_LIMIT, paginationOffset)
                         .doOnNext(response -> {
                             paginationOffset += PAGINATION_LIMIT;
                             if (response.pagination.count == 0) {
@@ -73,9 +81,8 @@ public class ImagesGridPresenter extends Presenter<ImagesGridView> {
                             if (getView() != null) {
                                 getView().addItems(items);
                             }
-                            Timber.d("responseOk");
                         }, Timber::e);
-        unsubscribeOnDestroy(d);
+        unsubscribeOnDestroy(searchDisposable);
     }
 
     private void showProgress() {
@@ -83,7 +90,7 @@ public class ImagesGridPresenter extends Presenter<ImagesGridView> {
         if (getView() != null) {
             getView().showProgress();
         } else {
-            Timber.e("View is not attached!");
+            Timber.e(VIEW_NOT_ATTACHED);
         }
     }
 
@@ -104,7 +111,7 @@ public class ImagesGridPresenter extends Presenter<ImagesGridView> {
 
     public void onImageClick(SearchResultsViewModel searchResultsViewModel) {
         if (getView() == null) {
-            Timber.e("View is not attached!");
+            Timber.e(VIEW_NOT_ATTACHED);
             return;
         }
         getView().openVideoScreen(searchResultsViewModel.videoUrl);
@@ -116,5 +123,27 @@ public class ImagesGridPresenter extends Presenter<ImagesGridView> {
         if (lastCompletelyVisibleItem >= items.size() - 10 && !isLoading) {
             loadData();
         }
+    }
+
+    public void onSearchInput(@NonNull String text) {
+        if (text.isEmpty() || text.equals(currentTextSearch)) {
+            return;
+        }
+
+        if (searchDisposable != null && !searchDisposable.isDisposed()) {
+            searchDisposable.dispose();
+        }
+
+        if (getView() == null) {
+            Timber.e(VIEW_NOT_ATTACHED);
+        } else {
+            getView().clearItems();
+            items = null;
+        }
+
+        currentTextSearch = text;
+        allDataLoaded = false;
+        isLoading = false;
+        loadData();
     }
 }
