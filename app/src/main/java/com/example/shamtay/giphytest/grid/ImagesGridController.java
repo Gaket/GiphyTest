@@ -8,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bluelinelabs.conductor.Controller;
+import com.bluelinelabs.conductor.RouterTransaction;
 import com.example.shamtay.giphytest.R;
 import com.example.shamtay.giphytest.SearchResultsViewModel;
 import com.example.shamtay.giphytest.dagger.DaggerAppComponent;
 import com.example.shamtay.giphytest.models.SearchResultsRecyclerAdapter;
+import com.example.shamtay.giphytest.video.VideoViewController;
 
 import java.util.List;
 
@@ -41,6 +43,8 @@ public class ImagesGridController extends Controller implements ImagesGridView {
         searchResultsView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
         searchResultsView.setAdapter(adapter);
 
+        adapter.setOnImageClickListener(presenter::onImageClick);
+
         return view;
     }
 
@@ -59,5 +63,13 @@ public class ImagesGridController extends Controller implements ImagesGridView {
     @Override
     public void addItems(List<SearchResultsViewModel> items) {
         adapter.addItems(items);
+    }
+
+    @Override
+    public void openVideoScreen(String videoUrl) {
+        getRouter().pushController(
+                RouterTransaction.with(
+                        new VideoViewController(videoUrl))
+        );
     }
 }

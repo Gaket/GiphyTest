@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ImagesGridView {
     void addItems(List<SearchResultsViewModel> items);
+
+    void openVideoScreen(String videoUrl);
 }

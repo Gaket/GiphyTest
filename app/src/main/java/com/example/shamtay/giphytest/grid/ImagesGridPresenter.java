@@ -1,7 +1,6 @@
 package com.example.shamtay.giphytest.grid;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.example.shamtay.giphytest.Presenter;
 import com.example.shamtay.giphytest.SearchResultsViewModel;
@@ -36,10 +35,21 @@ public class ImagesGridPresenter extends Presenter<ImagesGridView> {
                             Timber.d("responseOk");
                             if (getView() != null) {
                                 getView().addItems(items);
+                            } else {
+                                Timber.e("View is null!");
                             }
                         }, Timber::e);
 
         unsubscribeOnDestroy(d);
     }
 
+    public void onImageClick(SearchResultsViewModel searchResultsViewModel) {
+
+        if (getView() == null) {
+            Timber.e("View is null!");
+            return;
+        }
+
+        getView().openVideoScreen(searchResultsViewModel.videoUrl);
+    }
 }

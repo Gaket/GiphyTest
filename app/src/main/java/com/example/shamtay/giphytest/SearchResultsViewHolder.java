@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.shamtay.giphytest.grid.ImageClickListener;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -21,16 +22,18 @@ public class SearchResultsViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(@NonNull SearchResultsViewModel model) {
+    public void bind(@NonNull SearchResultsViewModel model, @Nullable ImageClickListener onClickListener) {
         Picasso.get()
                 .load(model.imageUrl)
                 //.resize(200, 50)
                 //.centerCrop()
                 .into(imageView);
-    }
 
-    public void setOnImageClickListener(@Nullable View.OnClickListener onClickListener) {
-        imageView.setOnClickListener(onClickListener);
+        imageView.setOnClickListener(view -> {
+            if (onClickListener != null) {
+                onClickListener.onImageClick(model);
+            }
+        });
     }
 
 }

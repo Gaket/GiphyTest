@@ -1,6 +1,7 @@
 package com.example.shamtay.giphytest;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
 
@@ -14,9 +15,10 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-
     @BindView(R.id.container)
     ViewGroup container;
+
+    private Router router;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,14 +27,17 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        Router router = Conductor.attachRouter(this, container, savedInstanceState);
+        router = Conductor.attachRouter(this, container, savedInstanceState);
 
         if (!router.hasRootController()) {
             router.setRoot(RouterTransaction.with(new ImagesGridController()));
         }
-
     }
 
-
-
+    @Override
+    public void onBackPressed() {
+        if (!router.handleBack()) {
+            super.onBackPressed();
+        }
+    }
 }

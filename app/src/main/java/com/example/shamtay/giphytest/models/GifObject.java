@@ -10,14 +10,22 @@ public class GifObject {
     @SerializedName("images")
     public Images images;
 
+    public static class Images {
+        @SerializedName("fixed_width_still")
+        public FixedWidthStill fixedWidthStill;
+
+        @SerializedName("original")
+        public Original original;
+    }
+
     public static class FixedWidthStill {
         @SerializedName("url")
         public String url;
     }
 
-    public static class Images {
-        @SerializedName("fixed_width_still")
-        public FixedWidthStill fixedWidthStill;
+    public static class Original {
+        @SerializedName("mp4")
+        public String mp4;
     }
 
 }

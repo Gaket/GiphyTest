@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.example.shamtay.giphytest.R;
 import com.example.shamtay.giphytest.SearchResultsViewHolder;
 import com.example.shamtay.giphytest.SearchResultsViewModel;
+import com.example.shamtay.giphytest.grid.ImageClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class SearchResultsRecyclerAdapter extends RecyclerView.Adapter {
     private List<SearchResultsViewModel> searchResults;
 
     @Nullable
-    private View.OnClickListener onImageClickListener;
+    private ImageClickListener onImageClickListener;
 
     public SearchResultsRecyclerAdapter(@NonNull LayoutInflater inflater) {
         this.inflater = inflater;
@@ -39,11 +40,9 @@ public class SearchResultsRecyclerAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
         SearchResultsViewHolder viewHolder = (SearchResultsViewHolder) holder;
 
-        viewHolder.bind(searchResults.get(position));
-        viewHolder.setOnImageClickListener(onImageClickListener);
+        viewHolder.bind(searchResults.get(position), onImageClickListener);
     }
 
     @Override
@@ -56,7 +55,7 @@ public class SearchResultsRecyclerAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-    public void setOnImageClickListener(@NonNull View.OnClickListener onClickListener) {
+    public void setOnImageClickListener(@NonNull ImageClickListener onClickListener) {
         onImageClickListener = onClickListener;
     }
 
