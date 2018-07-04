@@ -3,3 +3,4 @@
 GiphyTest.iml
 local.properties
 *.iml
+build/
