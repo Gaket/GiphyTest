@@ -59,7 +59,7 @@ public class VideoViewController extends Controller implements VideoView {
         getArgs().putString(EXTRA_VIDEO_URL, url);
     }
 
-    protected VideoViewController(@Nullable Bundle args) {
+    public VideoViewController(@Nullable Bundle args) {
         super(args);
 
         if (getArgs().getString(EXTRA_VIDEO_URL) != null) {
