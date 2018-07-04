@@ -50,7 +50,7 @@ public class AppModule {
     @Provides
     @Singleton
     BoxStore getObjectBox(Context context) {
-        return MyObjectBox.builder().androidContext(this).build();
+        return MyObjectBox.builder().androidContext(context).build();
     }
 
 }

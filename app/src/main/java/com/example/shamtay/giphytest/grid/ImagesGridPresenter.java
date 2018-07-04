@@ -44,7 +44,7 @@ public class ImagesGridPresenter extends Presenter<ImagesGridView> {
         this.interactor = interactor;
     }
 
-    public void onCreate(@NonNull ImagesGridView view) {
+    public void onViewCreate(@NonNull ImagesGridView view) {
         setView(view);
 
         if (items == null && !isLoading) {

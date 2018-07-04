@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bluelinelabs.conductor.Controller;
+import com.example.shamtay.giphytest.GiphyApp;
 import com.example.shamtay.giphytest.R;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -58,6 +59,7 @@ public class VideoViewController extends Controller {
     @Override
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
         View v = inflater.inflate(R.layout.view_video, container, false);
+        GiphyApp.getComponentInjector().getVideoComponent(url).inject(this);
         ButterKnife.bind(this, v);
         setUpPlayer();
         return v;

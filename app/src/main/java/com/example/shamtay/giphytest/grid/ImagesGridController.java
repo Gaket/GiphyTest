@@ -63,7 +63,7 @@ public class ImagesGridController extends Controller implements ImagesGridView {
 
         GiphyApp.getComponentInjector().getGridComponent().inject(this);
 
-        presenter.onCreate(this);
+        presenter.onViewCreate(this);
 
         searchTextInputDisposable = RxSearchObservable.fromView(searchView)
                 .debounce(1, TimeUnit.SECONDS)
@@ -99,6 +99,9 @@ public class ImagesGridController extends Controller implements ImagesGridView {
     protected void onDestroyView(@NonNull View view) {
         super.onDestroyView(view);
         adapter = null;
+        searchResultsView = null;
+        progressBar = null;
+        searchView = null;
 
         if (searchTextInputDisposable != null && !searchTextInputDisposable.isDisposed()) {
             searchTextInputDisposable.dispose();

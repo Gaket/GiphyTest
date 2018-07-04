@@ -21,7 +21,7 @@ public class ComponentInjector {
     private VideoComponent videoComponent;
 
     public ComponentInjector(Context context) {
-        appComponent = DaggerAppComponent.builder().build();
+        appComponent = DaggerAppComponent.builder().appModule(new AppModule(context)).build();
     }
 
     @NonNull
@@ -37,10 +37,10 @@ public class ComponentInjector {
     }
 
     @NonNull
-    public VideoComponent getVideoComponent() {
+    public VideoComponent getVideoComponent(String url) {
 
         if (videoComponent == null) {
-            videoComponent = appComponent.addVideoComponent(new VideoModule());
+            videoComponent = appComponent.addVideoComponent(new VideoModule(url));
         }
         return videoComponent;
     }

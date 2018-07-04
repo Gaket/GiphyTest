@@ -10,7 +10,7 @@ public class VoteRepository {
     }
 
     public void saveUpVote() {
-    
+
     }
 
     public void saveDownVote() {
