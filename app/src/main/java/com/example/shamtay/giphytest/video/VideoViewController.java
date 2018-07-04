@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.bluelinelabs.conductor.Controller;
 import com.example.shamtay.giphytest.GiphyApp;
@@ -31,7 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class VideoViewController extends Controller {
+public class VideoViewController extends Controller implements VideoView {
 
     private static final String EXTRA_VIDEO_URL = "video_url";
 
@@ -40,6 +41,12 @@ public class VideoViewController extends Controller {
 
     @BindView(R.id.player)
     PlayerView playerView;
+
+    @BindView(R.id.down_vote_count)
+    TextView downVoteCountView;
+
+    @BindView(R.id.up_vote_count)
+    TextView upVoteCount;
 
     SimpleExoPlayer player;
 
@@ -64,6 +71,7 @@ public class VideoViewController extends Controller {
         GiphyApp.getComponentInjector().getVideoComponent(url).inject(this);
         ButterKnife.bind(this, v);
         setUpPlayer();
+        presenter.onViewCreate(this);
         return v;
     }
 
@@ -108,5 +116,21 @@ public class VideoViewController extends Controller {
         playerView = null;
         player.release();
         player = null;
+        upVoteCount = null;
+        downVoteCountView = null;
+        presenter.onDestroy();
+        if (isBeingDestroyed()) {
+            GiphyApp.getComponentInjector().clearVideoComponent();
+        }
+    }
+
+    @Override
+    public void showUpVoteCount(int count) {
+        upVoteCount.setText(String.valueOf(count));
+    }
+
+    @Override
+    public void showDownVoteCount(int count) {
+        downVoteCountView.setText(String.valueOf(count));
     }
 }

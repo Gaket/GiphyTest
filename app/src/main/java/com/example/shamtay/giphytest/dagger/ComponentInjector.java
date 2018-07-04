@@ -38,7 +38,6 @@ public class ComponentInjector {
 
     @NonNull
     public VideoComponent getVideoComponent(String url) {
-
         if (videoComponent == null) {
             videoComponent = appComponent.addVideoComponent(new VideoModule(url));
         }
@@ -48,7 +47,5 @@ public class ComponentInjector {
     public void clearVideoComponent() {
         videoComponent = null;
     }
-
-
 
 }

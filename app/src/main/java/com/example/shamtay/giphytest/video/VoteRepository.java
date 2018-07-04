@@ -1,19 +1,43 @@
 package com.example.shamtay.giphytest.video;
 
+import android.support.annotation.NonNull;
+
+import com.example.shamtay.giphytest.models.VoteModel;
+import com.example.shamtay.giphytest.models.VoteModel_;
+
+import java.util.List;
+
+import io.objectbox.Box;
 import io.objectbox.BoxStore;
+import io.objectbox.android.AndroidScheduler;
+import io.objectbox.query.Query;
+import io.objectbox.reactive.DataSubscriptionList;
+import io.objectbox.reactive.SubscriptionBuilder;
+import timber.log.Timber;
 
 public class VoteRepository {
-    private BoxStore boxStore;
+
+    @NonNull private Box<VoteModel> box;
 
     public VoteRepository(BoxStore boxStore) {
-        this.boxStore = boxStore;
+        box = boxStore.boxFor(VoteModel.class);
     }
 
-    public void saveUpVote() {
-
+    public void saveUpVote(String url) {
+        box.put(new VoteModel(true, url));
     }
 
-    public void saveDownVote() {
+    public void saveDownVote(String url) {
+        box.put(new VoteModel(false, url));
+    }
+
+    public SubscriptionBuilder<List<VoteModel>> getVotes(String url) {
+        Query<VoteModel> query  = box.query().equal(VoteModel_.url, url).build();
+
+
+        return query.subscribe(new DataSubscriptionList())
+                .onError(Timber::e);
+
 
     }
 }

@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:3937053526518697904",
-      "lastPropertyId": "4:8425481947777600902",
+      "lastPropertyId": "3:4151438287438401570",
       "name": "VoteModel",
       "properties": [
         {
@@ -15,10 +15,6 @@
         {
           "id": "3:4151438287438401570",
           "name": "upVote"
-        },
-        {
-          "id": "4:8425481947777600902",
-          "name": "url"
         }
       ],
       "relations": []

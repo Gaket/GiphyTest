@@ -9,8 +9,14 @@ public class VoteModel {
     @Id
     public long id;
 
+    public boolean upVote;
+
     public String url;
 
-    public boolean upVote;
+    public VoteModel(boolean upVote, String url) {
+        this.upVote = upVote;
+        this.url = url;
+    }
+
 
 }
