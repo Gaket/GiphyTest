@@ -23,6 +23,7 @@ public class ImagesGridPresenter extends Presenter<ImagesGridView> {
     @Nullable
     private List<SearchResultsViewModel> items;
 
+    // TODO: 04.07.2018 move pagination responsibility to separate class
     private boolean isLoading;
 
     private boolean allDataLoaded;
