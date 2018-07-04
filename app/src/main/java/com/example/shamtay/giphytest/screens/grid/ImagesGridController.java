@@ -32,16 +32,23 @@ import timber.log.Timber;
 public class ImagesGridController extends Controller implements ImagesGridView {
 
     private static final int COLUMNS_COUNT = 3;
+
     @BindView(R.id.search_results)
     RecyclerView searchResultsView;
+
     @BindView(R.id.progress_bar)
     View progressBar;
+
     @BindView(R.id.search_view)
     SearchView searchView;
+
     @Inject
     ImagesGridPresenter presenter;
+
     private SearchResultsRecyclerAdapter adapter;
+
     private LayoutInflater inflater;
+
     @Nullable
     private Disposable searchTextInputDisposable;
 

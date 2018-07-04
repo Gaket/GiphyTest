@@ -35,15 +35,21 @@ import butterknife.OnClick;
 public class VideoViewController extends Controller implements VideoView {
 
     private static final String EXTRA_VIDEO_URL = "video_url";
+
     @BindView(R.id.player)
     PlayerView playerView;
+
     @BindView(R.id.down_vote_count)
     TextView downVoteCountView;
+
     @BindView(R.id.up_vote_count)
     TextView upVoteCount;
+
     SimpleExoPlayer player;
+
     @Inject
     VideoViewPresenter presenter;
+
     @NonNull
     private String url;
 
