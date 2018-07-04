@@ -39,7 +39,7 @@ dependencies {
 
     implementation "com.google.dagger:dagger-android:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
-    // if you use the support libraries
+
     annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
 
@@ -58,7 +58,10 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer:2.8.2'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    // todo
+
+    // tried to use last libraries version, unfortunately that leads to dependencies conflicts
+    // solution may be to downgrade versions of some libraries.
+    // By the way, no bugs were found, concerning this issue, so left as is
     implementation "com.android.support:appcompat-v7:$support"
     implementation "com.android.support:recyclerview-v7:$support"
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
