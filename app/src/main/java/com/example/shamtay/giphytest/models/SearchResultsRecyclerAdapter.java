@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.example.shamtay.giphytest.R;
 import com.example.shamtay.giphytest.SearchResultsViewHolder;
 import com.example.shamtay.giphytest.SearchResultsViewModel;
-import com.example.shamtay.giphytest.grid.ImageClickListener;
+import com.example.shamtay.giphytest.screens.grid.ImageClickListener;
 
 import java.util.ArrayList;
 import java.util.List;

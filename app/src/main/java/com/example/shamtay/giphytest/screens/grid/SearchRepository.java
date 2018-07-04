@@ -1,4 +1,4 @@
-package com.example.shamtay.giphytest.grid;
+package com.example.shamtay.giphytest.screens.grid;
 
 import com.example.shamtay.giphytest.GiphyApi;
 import com.example.shamtay.giphytest.models.SearchResponseModel;

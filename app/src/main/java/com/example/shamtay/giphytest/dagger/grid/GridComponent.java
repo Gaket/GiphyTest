@@ -1,7 +1,7 @@
 package com.example.shamtay.giphytest.dagger.grid;
 
 import com.example.shamtay.giphytest.dagger.FragmentScope;
-import com.example.shamtay.giphytest.grid.ImagesGridController;
+import com.example.shamtay.giphytest.screens.grid.ImagesGridController;
 
 import dagger.Subcomponent;
 

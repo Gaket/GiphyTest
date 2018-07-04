@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.example.shamtay.giphytest.grid.ImageClickListener;
+import com.example.shamtay.giphytest.screens.grid.ImageClickListener;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;

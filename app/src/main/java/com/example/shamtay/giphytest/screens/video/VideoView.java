@@ -1,4 +1,4 @@
-package com.example.shamtay.giphytest.video;
+package com.example.shamtay.giphytest.screens.video;
 
 public interface VideoView {
 

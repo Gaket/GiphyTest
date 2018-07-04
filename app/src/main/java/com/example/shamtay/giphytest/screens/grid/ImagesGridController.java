@@ -1,4 +1,4 @@
-package com.example.shamtay.giphytest.grid;
+package com.example.shamtay.giphytest.screens.grid;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,7 +17,7 @@ import com.example.shamtay.giphytest.R;
 import com.example.shamtay.giphytest.RxSearchObservable;
 import com.example.shamtay.giphytest.SearchResultsViewModel;
 import com.example.shamtay.giphytest.models.SearchResultsRecyclerAdapter;
-import com.example.shamtay.giphytest.video.VideoViewController;
+import com.example.shamtay.giphytest.screens.video.VideoViewController;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
