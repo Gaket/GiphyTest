@@ -13,5 +13,6 @@ import dagger.Component;
 @Component(modules = {AppModule.class})
 public interface AppComponent {
     GridComponent addGridComponent(GridModule module);
+
     VideoComponent addVideoComponent(VideoModule module);
 }

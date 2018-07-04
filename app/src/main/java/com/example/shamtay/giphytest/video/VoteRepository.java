@@ -9,7 +9,6 @@ import java.util.List;
 
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
-import io.objectbox.android.AndroidScheduler;
 import io.objectbox.query.Query;
 import io.objectbox.reactive.DataSubscriptionList;
 import io.objectbox.reactive.SubscriptionBuilder;
@@ -17,7 +16,8 @@ import timber.log.Timber;
 
 public class VoteRepository {
 
-    @NonNull private Box<VoteModel> box;
+    @NonNull
+    private Box<VoteModel> box;
 
     public VoteRepository(BoxStore boxStore) {
         box = boxStore.boxFor(VoteModel.class);
@@ -32,7 +32,7 @@ public class VoteRepository {
     }
 
     public SubscriptionBuilder<List<VoteModel>> getVotes(String url) {
-        Query<VoteModel> query  = box.query().equal(VoteModel_.url, url).build();
+        Query<VoteModel> query = box.query().equal(VoteModel_.url, url).build();
 
 
         return query.subscribe(new DataSubscriptionList())

@@ -12,6 +12,10 @@ public class GiphyApp extends Application {
 
     private static ComponentInjector componentInjector;
 
+    public static ComponentInjector getComponentInjector() {
+        return componentInjector;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -20,10 +24,6 @@ public class GiphyApp extends Application {
 
         /*boxStore = MyObjectBox.builder().androidContext(this).build()
         box = boxStore.boxFor(PlayList::class.java)*/
-    }
-
-    public static ComponentInjector getComponentInjector() {
-        return componentInjector;
     }
 
 

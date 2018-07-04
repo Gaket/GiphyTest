@@ -32,23 +32,17 @@ import timber.log.Timber;
 
 public class ImagesGridController extends Controller implements ImagesGridView {
 
+    private static final int COLUMNS_COUNT = 3;
     @BindView(R.id.search_results)
     RecyclerView searchResultsView;
-
     @BindView(R.id.progress_bar)
     View progressBar;
-
     @BindView(R.id.search_view)
     SearchView searchView;
-
-    private SearchResultsRecyclerAdapter adapter;
-
     @Inject
     ImagesGridPresenter presenter;
+    private SearchResultsRecyclerAdapter adapter;
     private LayoutInflater inflater;
-
-    private static final int COLUMNS_COUNT = 3;
-
     @Nullable
     private Disposable searchTextInputDisposable;
 
@@ -68,7 +62,7 @@ public class ImagesGridController extends Controller implements ImagesGridView {
         searchTextInputDisposable = RxSearchObservable.fromView(searchView)
                 .debounce(1, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(text->{
+                .subscribe(text -> {
                     presenter.onSearchInput(text);
                 }, Timber::e);
 
@@ -92,7 +86,7 @@ public class ImagesGridController extends Controller implements ImagesGridView {
         });
 
         searchResultsView.setAdapter(adapter);
-        adapter.setOnImageClickListener( image -> presenter.onImageClick(image));
+        adapter.setOnImageClickListener(image -> presenter.onImageClick(image));
     }
 
     @Override

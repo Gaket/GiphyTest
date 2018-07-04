@@ -3,7 +3,6 @@ package com.example.shamtay.giphytest.grid;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.example.shamtay.giphytest.GiphyApi;
 import com.example.shamtay.giphytest.Presenter;
 import com.example.shamtay.giphytest.SearchResultsViewModel;
 
@@ -13,8 +12,6 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
-
-import static com.example.shamtay.giphytest.GiphyApp.API_KEY;
 
 public class ImagesGridPresenter extends Presenter<ImagesGridView> {
 

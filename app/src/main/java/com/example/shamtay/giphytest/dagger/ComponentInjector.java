@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.example.shamtay.giphytest.GiphyApp;
 import com.example.shamtay.giphytest.dagger.grid.GridComponent;
 import com.example.shamtay.giphytest.dagger.grid.GridModule;
 import com.example.shamtay.giphytest.dagger.video.VideoComponent;

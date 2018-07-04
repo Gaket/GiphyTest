@@ -4,7 +4,6 @@ import android.support.v7.widget.SearchView;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
-import timber.log.Timber;
 
 public class RxSearchObservable {
 

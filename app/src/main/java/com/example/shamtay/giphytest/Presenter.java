@@ -17,12 +17,13 @@ public class Presenter<V> {
         disposable.add(subscription);
     }
 
-    protected void setView(@NonNull V view) {
-        this.view = view;
+    public @Nullable
+    V getView() {
+        return view;
     }
 
-    public @Nullable V getView() {
-        return view;
+    protected void setView(@NonNull V view) {
+        this.view = view;
     }
 
     public void onDestroy() {
