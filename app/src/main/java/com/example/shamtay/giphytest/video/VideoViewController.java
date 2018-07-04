@@ -41,6 +41,8 @@ public class VideoViewController extends Controller {
     @BindView(R.id.player)
     PlayerView playerView;
 
+    SimpleExoPlayer player;
+
     @Inject
     VideoViewPresenter presenter;
 
@@ -75,7 +77,7 @@ public class VideoViewController extends Controller {
                 new DefaultTrackSelector(videoTrackSelectionFactory);
 
         // todo check getActivity null
-        SimpleExoPlayer player =
+        player =
                 ExoPlayerFactory.newSimpleInstance(getActivity(), trackSelector);
         playerView.setPlayer(player);
 
@@ -100,4 +102,11 @@ public class VideoViewController extends Controller {
         presenter.onUpVoteClick();
     }
 
+    @Override
+    protected void onDestroyView(@NonNull View view) {
+        super.onDestroyView(view);
+        playerView = null;
+        player.release();
+        player = null;
+    }
 }
