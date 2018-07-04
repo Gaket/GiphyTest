@@ -14,9 +14,8 @@ import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.example.shamtay.giphytest.GiphyApp;
 import com.example.shamtay.giphytest.R;
-import com.example.shamtay.giphytest.RxSearchObservable;
-import com.example.shamtay.giphytest.SearchResultsViewModel;
-import com.example.shamtay.giphytest.models.SearchResultsRecyclerAdapter;
+import com.example.shamtay.giphytest.models.SearchResultsViewModel;
+import com.example.shamtay.giphytest.screens.grid.recycler.SearchResultsRecyclerAdapter;
 import com.example.shamtay.giphytest.screens.video.VideoViewController;
 
 import java.util.List;

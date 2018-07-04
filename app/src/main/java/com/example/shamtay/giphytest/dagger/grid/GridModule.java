@@ -3,8 +3,8 @@ package com.example.shamtay.giphytest.dagger.grid;
 import com.example.shamtay.giphytest.GiphyApi;
 import com.example.shamtay.giphytest.dagger.FragmentScope;
 import com.example.shamtay.giphytest.screens.grid.ImagesGridPresenter;
-import com.example.shamtay.giphytest.screens.grid.SearchInteractor;
-import com.example.shamtay.giphytest.screens.grid.SearchRepository;
+import com.example.shamtay.giphytest.screens.grid.domain.SearchInteractor;
+import com.example.shamtay.giphytest.screens.grid.domain.SearchRepository;
 
 import dagger.Module;
 import dagger.Provides;

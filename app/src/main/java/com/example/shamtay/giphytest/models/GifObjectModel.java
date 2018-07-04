@@ -2,7 +2,7 @@ package com.example.shamtay.giphytest.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class GifObject {
+public class GifObjectModel {
 
     @SerializedName("type")
     public String type;

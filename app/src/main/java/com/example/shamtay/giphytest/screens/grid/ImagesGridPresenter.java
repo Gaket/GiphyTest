@@ -4,7 +4,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.example.shamtay.giphytest.Presenter;
-import com.example.shamtay.giphytest.SearchResultsViewModel;
+import com.example.shamtay.giphytest.models.SearchResultsViewModel;
+import com.example.shamtay.giphytest.screens.grid.domain.SearchInteractor;
 
 import java.util.ArrayList;
 import java.util.List;

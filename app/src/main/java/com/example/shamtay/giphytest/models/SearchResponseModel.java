@@ -7,7 +7,7 @@ import java.util.List;
 public class SearchResponseModel {
 
     @SerializedName("data")
-    public List<GifObject> data;
+    public List<GifObjectModel> data;
 
     @SerializedName("pagination")
     public Pagination pagination;

@@ -1,4 +1,4 @@
-package com.example.shamtay.giphytest;
+package com.example.shamtay.giphytest.screens.grid;
 
 import android.support.v7.widget.SearchView;
 

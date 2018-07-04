@@ -2,7 +2,7 @@ package com.example.shamtay.giphytest.screens.grid;
 
 import android.support.annotation.NonNull;
 
-import com.example.shamtay.giphytest.SearchResultsViewModel;
+import com.example.shamtay.giphytest.models.SearchResultsViewModel;
 
 import java.util.List;
 

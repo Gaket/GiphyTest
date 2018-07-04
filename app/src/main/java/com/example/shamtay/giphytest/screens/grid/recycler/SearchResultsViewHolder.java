@@ -1,4 +1,4 @@
-package com.example.shamtay.giphytest;
+package com.example.shamtay.giphytest.screens.grid.recycler;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.shamtay.giphytest.R;
+import com.example.shamtay.giphytest.models.SearchResultsViewModel;
 import com.example.shamtay.giphytest.screens.grid.ImageClickListener;
 import com.squareup.picasso.Picasso;
 
