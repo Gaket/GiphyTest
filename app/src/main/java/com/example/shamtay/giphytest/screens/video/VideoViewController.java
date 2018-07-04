@@ -51,7 +51,7 @@ public class VideoViewController extends Controller implements VideoView {
     @Inject
     VideoViewPresenter presenter;
 
-    // TODO: 04.07.2018 add url to saveInstanceState to restore in case app will destroyed
+    // TODO: 04.07.2018 add url to saveInstanceState to restore in case app will be destroyed
     @NonNull
     private String url;
 
