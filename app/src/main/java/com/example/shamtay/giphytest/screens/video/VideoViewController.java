@@ -31,6 +31,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 public class VideoViewController extends Controller implements VideoView {
 
@@ -60,8 +61,13 @@ public class VideoViewController extends Controller implements VideoView {
 
     protected VideoViewController(@Nullable Bundle args) {
         super(args);
-        // TODO: 03.07.2018
-        url = getArgs().getString(EXTRA_VIDEO_URL);
+
+        if (getArgs().getString(EXTRA_VIDEO_URL) != null) {
+            Timber.e("url is not saved in args!");
+            url = "";
+        } else {
+            url = getArgs().getString(EXTRA_VIDEO_URL);
+        }
     }
 
     @NonNull
@@ -84,12 +90,15 @@ public class VideoViewController extends Controller implements VideoView {
         DefaultTrackSelector trackSelector =
                 new DefaultTrackSelector(videoTrackSelectionFactory);
 
-        // todo check getActivity null
+        if (getActivity() == null) {
+            Timber.e("Activity not attached");
+            return;
+        }
+
         player =
                 ExoPlayerFactory.newSimpleInstance(getActivity(), trackSelector);
         playerView.setPlayer(player);
 
-        // todo getActivity = null
         DataSource.Factory dataSourceFactory =
                 new DefaultDataSourceFactory(getActivity(), Util.getUserAgent(getActivity(), "GiphyTest"));
 
