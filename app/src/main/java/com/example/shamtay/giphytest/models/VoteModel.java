@@ -13,6 +13,10 @@ public class VoteModel {
 
     public String url;
 
+    public VoteModel() {
+        super();
+    }
+
     public VoteModel(boolean upVote, String url) {
         this.upVote = upVote;
         this.url = url;
